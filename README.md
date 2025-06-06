@@ -7,22 +7,22 @@ Scales considered for both of them are mentioned below:
 
 1. USA Point Scale:
 
-  A	= 4		
-  A- = 4	
-  B	=	3.5	
-  B- = 3		
-  C	=	2.5	
-  C- = 2		
-  D	= 2		
+  A	= 4;		
+  A- = 4;	
+  B	=	3.5;	
+  B- = 3;		
+  C	=	2.5;	
+  C- = 2;		
+  D	= 2;		
   E	=	0	
 
 2. Indian Point Scale:
 
-  A	= 10		
-  A- = 9	
-  B	=	8	
-  B- = 7		
-  C	=	6	
-  C- = 5		
-  D	= 4		
+  A	= 10;		
+  A- = 9;	
+  B	=	8;	
+  B- = 7;		
+  C	=	6;	
+  C- = 5;		
+  D	= 4;		
   E	=	2	
