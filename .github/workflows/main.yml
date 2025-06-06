@@ -5,26 +5,27 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
-    - name: Upload Artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: .  # Root directory containing your static files
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: USA_GPA_Calculator_Gokula.github.io  # 👈 FIXED
 
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
