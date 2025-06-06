@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GPA & CGPA Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 30px 10px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-top: 8px solid #701C1C; /* BITS deep maroon */
+    }
+
+    h1 {
+      text-align: center;
+      color: #701C1C;
+    }
+
+    .info {
+      background-color: #fffbe6;
+      padding: 15px;
+      border-left: 5px solid #D1A000;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    th {
+      background-color: #D1A000;
+      color: white;
+    }
+
+    td input {
+      width: 80%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      background-color: #701C1C;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background-color: #4d1414;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 25px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #006400;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>USA GPA & Indian CGPA Calculator</h1>
+
+    <div class="info">
+      <strong>Grade Mapping:</strong><br>
+      USA GPA Scale: A = 4, A- = 4, B = 3.5, B- = 3, C = 2.5, C- = 2, D = 2, E = 0<br>
+      Indian CGPA Scale: A = 10, A- = 9, B = 8, B- = 7, C = 6, C- = 5, D = 4, E = 2<br>
+      Enter total <strong>credit hours</strong> received per grade below:
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Grade</th>
+          <th>Credit Hours</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>A</td><td><input type="number" min="0" step="0.5" id="A" placeholder="0"></td></tr>
+        <tr><td>A-</td><td><input type="number" min="0" step="0.5" id="Aminus" placeholder="0"></td></tr>
+        <tr><td>B</td><td><input type="number" min="0" step="0.5" id="B" placeholder="0"></td></tr>
+        <tr><td>B-</td><td><input type="number" min="0" step="0.5" id="Bminus" placeholder="0"></td></tr>
+        <tr><td>C</td><td><input type="number" min="0" step="0.5" id="C" placeholder="0"></td></tr>
+        <tr><td>C-</td><td><input type="number" min="0" step="0.5" id="Cminus" placeholder="0"></td></tr>
+        <tr><td>D</td><td><input type="number" min="0" step="0.5" id="D" placeholder="0"></td></tr>
+        <tr><td>E</td><td><input type="number" min="0" step="0.5" id="E" placeholder="0"></td></tr>
+      </tbody>
+    </table>
+
+    <div style="text-align: center;">
+      <button class="btn" onclick="calculateGPA()">Calculate</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateGPA() {
+      const grades = {
+        A:     { gpa: 4, cgpa: 10 },
+        Aminus:{ gpa: 4, cgpa: 9 },
+        B:     { gpa: 3.5, cgpa: 8 },
+        Bminus:{ gpa: 3, cgpa: 7 },
+        C:     { gpa: 2.5, cgpa: 6 },
+        Cminus:{ gpa: 2, cgpa: 5 },
+        D:     { gpa: 2, cgpa: 4 },
+        E:     { gpa: 0, cgpa: 2 }
+      };
+
+      let totalCredits = 0;
+      let totalGPApoints = 0;
+      let totalCGPApoints = 0;
+
+      for (let grade in grades) {
+        const credit = parseFloat(document.getElementById(grade).value) || 0;
+        totalCredits += credit;
+        totalGPApoints += credit * grades[grade].gpa;
+        totalCGPApoints += credit * grades[grade].cgpa;
+      }
+
+      if (totalCredits === 0) {
+        document.getElementById('result').innerHTML = `<p>Please enter credit hours.</p>`;
+        return;
+      }
+
+      const gpa = (totalGPApoints / totalCredits).toFixed(2);
+      const cgpa = (totalCGPApoints / totalCredits).toFixed(2);
+
+      document.getElementById('result').innerHTML = `
+        <p>📊 <strong>USA GPA:</strong> <span class="highlight">${gpa}</span></p>
+        <p>🎓 <strong>Exact Indian CGPA:</strong> <span class="highlight">${cgpa}</span></p>
+      `;
+    }
+  </script>
+</body>
+</html>
