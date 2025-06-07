@@ -3,37 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GPA & CGPA Calculator</title>
+  <title>GPA & CGPA Calculator for Indian Students</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #0D0B1F;
+      --glass: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.1);
+      --primary: #ffffff;
+      --secondary: #c0c0dd;
+      --accent-gradient: linear-gradient(90deg, #F78BD6, #A07CFF, #5ED3F3);
+      --btn-bg: #A07CFF;
+    }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--primary);
       margin: 0;
       padding: 30px 10px;
     }
 
     .container {
-      max-width: 800px;
+      max-width: 850px;
       margin: auto;
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      border-top: 8px solid #701C1C; /* BITS deep maroon */
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 0 30px rgba(160, 124, 255, 0.15);
+      backdrop-filter: blur(12px);
     }
 
     h1 {
       text-align: center;
-      color: #701C1C;
+      font-weight: 700;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .info {
-      background-color: #fffbe6;
+      background-color: rgba(255, 255, 255, 0.03);
+      border-left: 4px solid #F78BD6;
       padding: 15px;
-      border-left: 5px solid #D1A000;
       margin-bottom: 25px;
       font-size: 14px;
+      color: var(--secondary);
     }
 
     table {
@@ -49,32 +65,34 @@
     }
 
     th {
-      background-color: #D1A000;
-      color: white;
+      background-color: #1e1c35;
     }
 
     td input {
       width: 80%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      background: #1a182f;
+      color: var(--primary);
+      border-radius: 8px;
+      outline: none;
     }
 
     .btn {
-      padding: 12px 25px;
-      background-color: #701C1C;
+      padding: 14px 30px;
+      background: var(--accent-gradient);
       color: white;
       border: none;
-      border-radius: 25px;
+      border-radius: 30px;
       cursor: pointer;
       font-size: 16px;
-      transition: background-color 0.3s ease;
-      margin-top: 10px;
-      display: inline-block;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
 
     .btn:hover {
-      background-color: #4d1414;
+      filter: brightness(1.2);
+      transform: scale(1.05);
     }
 
     #result {
@@ -85,19 +103,33 @@
 
     .highlight {
       font-weight: bold;
-      color: #006400;
+      color: #A07CFF;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>USA GPA & Indian CGPA Calculator</h1>
+    <h1>GPA & CGPA Calculator</h1>
 
     <div class="info">
+      This calculator is tailored for <strong>Indian students</strong> planning to convert their CGPA to USA & German grades.<br><br>
       <strong>Grade Mapping:</strong><br>
-      USA GPA Scale: A = 4, A- = 4, B = 3.5, B- = 3, C = 2.5, C- = 2, D = 2, E = 0<br>
-      Indian CGPA Scale: A = 10, A- = 9, B = 8, B- = 7, C = 6, C- = 5, D = 4, E = 2<br>
-      Enter total <strong>credit hours</strong> received per grade below:
+      USA GPA: A = 4, A- = 4, B = 3.5, B- = 3, C = 2.5, C- = 2, D = 2, E = 0 <strong>(Scholaro)</strong><br>
+      Indian CGPA: A = 10, A- = 9, B = 8, B- = 7, C = 6, C- = 5, D = 4, E = 2<br><br>
+      <strong>German Grade System (TUM):</strong><br>
+      The German grade system ranges from <strong>1 (best)</strong> to <strong>5 (fail)</strong>.<br>
+      Formula: <code>German Grade = 1 + 3 × (Best Grade - Your Grade) / (Best Grade - Min Passing Grade)</code><br>
+      Best grade is fixed at <strong>10</strong> and your grade is derived from calculated CGPA.
     </div>
 
     <table>
@@ -119,15 +151,20 @@
       </tbody>
     </table>
 
+    <div style="margin-bottom: 20px;">
+      <label for="minPassing">Min Passing Grade (mandatory for German grade):</label><br>
+      <input type="number" id="minPassing" placeholder="e.g. 4 or 5" step="0.1" style="width: 100%; margin-top: 5px;">
+    </div>
+
     <div style="text-align: center;">
-      <button class="btn" onclick="calculateGPA()">Calculate</button>
+      <button class="btn" onclick="calculateAll()">Calculate</button>
     </div>
 
     <div id="result"></div>
   </div>
 
   <script>
-    function calculateGPA() {
+    function calculateAll() {
       const grades = {
         A:     { gpa: 4, cgpa: 10 },
         Aminus:{ gpa: 4, cgpa: 9 },
@@ -139,28 +176,34 @@
         E:     { gpa: 0, cgpa: 2 }
       };
 
-      let totalCredits = 0;
-      let totalGPApoints = 0;
-      let totalCGPApoints = 0;
+      let totalCredits = 0, gpaSum = 0, cgpaSum = 0;
 
       for (let grade in grades) {
         const credit = parseFloat(document.getElementById(grade).value) || 0;
         totalCredits += credit;
-        totalGPApoints += credit * grades[grade].gpa;
-        totalCGPApoints += credit * grades[grade].cgpa;
+        gpaSum += credit * grades[grade].gpa;
+        cgpaSum += credit * grades[grade].cgpa;
       }
 
-      if (totalCredits === 0) {
-        document.getElementById('result').innerHTML = `<p>Please enter credit hours.</p>`;
+      const minPass = parseFloat(document.getElementById('minPassing').value);
+      if (totalCredits === 0 || isNaN(minPass)) {
+        document.getElementById('result').innerHTML = `<p>Please enter credit hours and minimum passing grade.</p>`;
         return;
       }
 
-      const gpa = (totalGPApoints / totalCredits).toFixed(2);
-      const cgpa = (totalCGPApoints / totalCredits).toFixed(2);
+      const gpa = (gpaSum / totalCredits).toFixed(2);
+      const cgpa = (cgpaSum / totalCredits).toFixed(2);
+
+      // German Grade Calculation
+      const best = 10;
+      const obtained = parseFloat(cgpa);
+      const german = 1 + 3 * (best - obtained) / (best - minPass);
+      const germanRounded = Math.min(Math.max(german, 1.0), 5.0).toFixed(2);
 
       document.getElementById('result').innerHTML = `
-        <p>📊 <strong>USA GPA:</strong> <span class="highlight">${gpa}</span></p>
-        <p>🎓 <strong>Exact Indian CGPA:</strong> <span class="highlight">${cgpa}</span></p>
+        <p>🇮🇳 <strong>Indian CGPA:</strong> <span class="highlight">${cgpa}</span></p>
+        <p>🇺🇸 <strong>USA GPA:</strong> <span class="highlight">${gpa}</span></p>
+        <p>🇩🇪 <strong>German Grade (TUM):</strong> <span class="highlight">${germanRounded}</span></p>
       `;
     }
   </script>
