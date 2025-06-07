@@ -2,8 +2,8 @@
 
 This repository is a responsive `.html` website that helps you calculate your GPA/CGPA based on grade input and credit hours. It supports conversion for three major systems:
 
-1. 🇺🇸 **USA GPA** (based on Scholaro grade mapping)
-2. 🇮🇳 **Indian CGPA** (10-point scale commonly used in Indian universities)
+1. 🇺🇸 **USA GPA** (based on Scholaro grade mapping)  
+2. 🇮🇳 **Indian CGPA** (10-point scale commonly used in Indian universities)  
 3. 🇩🇪 **German Grade** (using the official TUM formula)
 
 ---
@@ -12,8 +12,8 @@ This repository is a responsive `.html` website that helps you calculate your GP
 
 This tool is designed especially for **Indian students** applying to international universities in the **USA** and **Germany**. It gives a quick estimation of your:
 
-- **GPA** (for US applications)
-- **CGPA** (for Indian reference)
+- **GPA** (for US applications)  
+- **CGPA** (for Indian reference)  
 - **German equivalent grade** (for German universities, including TUM)
 
 ---
@@ -53,5 +53,4 @@ This tool is designed especially for **Indian students** applying to internation
 ### 3. German Grade Conversion (TUM Formula)
 
 The German university grade system ranges from **1.0 (best)** to **5.0 (fail)**. The conversion formula used is:
-
 German Grade = 1 + 3 × (Best Grade - Your Grade) / (Best Grade - Min Passing Grade)
