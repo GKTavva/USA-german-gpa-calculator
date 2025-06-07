@@ -1,4 +1,4 @@
-# USA_German_GPA_Calculator
+# USA_German_GPA_Calculator_Gokula.github.io
 
 This repository is a responsive `.html` website that helps you calculate your GPA/CGPA based on grade input and credit hours. It supports conversion for three major systems:
 
@@ -54,3 +54,4 @@ This tool is designed especially for **Indian students** applying to internation
 
 The German university grade system ranges from **1.0 (best)** to **5.0 (fail)**. The conversion formula used is:
 
+German Grade = 1 + 3 × (Best Grade - Your Grade) / (Best Grade - Min Passing Grade)
