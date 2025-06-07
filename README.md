@@ -1,4 +1,4 @@
-# USA_GPA_Calculator_Gokula.github.io
+# USA_German_GPA_Calculator
 
 This repository is a responsive `.html` website that helps you calculate your GPA/CGPA based on grade input and credit hours. It supports conversion for three major systems:
 
